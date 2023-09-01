@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: fire-tracker-service
+  profiles:
+    default: prod
+server:
+  port: 7777
+logging:
+  file:
+    name: logs/fire-tracker-service.log
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?user=user&password=password&currentSchema=fire_tracker_service_prod
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+
+app:
+  services:
+    nasa:
+      url: https://firms.modaps.eosdis.nasa.gov/api
+      map-key: 1bb868727ca849630d5774d732f6b373
+    open-meteo:
+      url: https://api.open-meteo.com/v1
+    ai:
+      mocked: true
