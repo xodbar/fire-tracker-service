@@ -1,5 +1,6 @@
 package app.core.nasa
 
+import app.core.nasa.token.NasaTokenRepo
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.beans.factory.annotation.Qualifier
@@ -11,8 +12,8 @@ import java.time.LocalDate
 
 @Service
 class NasaFirmsService(
+    private val nasaTokenRepo: NasaTokenRepo,
     @Qualifier("defaultRestTemplate") private val restTemplate: RestTemplate,
-    @Value("\${app.services.nasa.map-key}") private val mapKey: String,
     @Value("\${app.services.nasa.url}") private val nasaFirmsUrl: String
 ) {
 
@@ -23,8 +24,10 @@ class NasaFirmsService(
         ).body ?: throw RuntimeException("Failed to get NASA FIRMS data")
     }
 
-    private fun getFirmsUrl(country: SupportedCountry, toDate: LocalDate, range: Int) =
-        "$nasaFirmsUrl/country/csv/$mapKey/VIIRS_SNPP_NRT/${country.code}/$range/$toDate"
+    private fun getFirmsUrl(country: SupportedCountry, toDate: LocalDate, range: Int): String {
+        val tokenModel = nasaTokenRepo.findFirstByActiveIsTrueOrderByIdDesc()
+        return "$nasaFirmsUrl/country/csv/${tokenModel.token}/VIIRS_SNPP_NRT/${country.code}/$range/$toDate"
+    }
 }
 
 enum class SupportedCountry(val code: String) {

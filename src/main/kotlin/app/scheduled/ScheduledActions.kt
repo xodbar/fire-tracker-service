@@ -14,15 +14,17 @@ class ScheduledActions(
 
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    @Scheduled(cron = "0 */5 * * * ?", zone = "Asia/Almaty")
+    @Scheduled(cron = "*/10 * * * * ?", zone = "Asia/Almaty")
     fun runScheduledRealTimeFireMonitoring() {
         logger.info("Scheduled real-time fire monitoring updates started")
         updateRealTimeDataUseCase.handle()
+        logger.info("Scheduled real-time fire monitoring updates finished")
     }
 
-    @Scheduled(cron = "0 */5 * * * ?", zone = "Asia/Almaty")
+    @Scheduled(cron = "*/35 * * * * ?", zone = "Asia/Almaty")
     fun runScheduledPredictionFireMonitoring() {
         logger.info("Scheduled prediction fire monitoring updates started")
         updatePredictionDataUseCase.handle()
+        logger.info("Scheduled prediction fire monitoring updates finished")
     }
 }

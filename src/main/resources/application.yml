@@ -40,7 +40,6 @@ app:
   services:
     nasa:
       url: https://firms.modaps.eosdis.nasa.gov/api
-      map-key: 046e1bd6f1fbd2f214a6bb39b6e41a50
     open-weather:
       url: https://api.openweathermap.org/data/2.5
       token: 4490a59ec10f5a89677cf9381637e57e

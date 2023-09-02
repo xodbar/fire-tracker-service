@@ -3,7 +3,7 @@ global:
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
 
 rule_files:
-# - "first_rules.yml"
+  - alert.rules
 # - "second_rules.yml"
 
 # A scrape configuration containing exactly one endpoint to scrape:

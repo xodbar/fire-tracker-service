@@ -1,0 +1,11 @@
+groups:
+  - name: my-alert-rules
+    rules:
+      - alert: HighRiskRate
+        expr: riskRate > 4
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High Risk Rate Detected"
+          description: "The risk rate is currently {{ $value }} ({{ $labels.latitude }}, {{ $labels.longitude }})."
