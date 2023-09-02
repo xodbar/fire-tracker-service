@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class FireTrackerServiceApplication
 
 fun main(args: Array<String>) {
-	runApplication<FireTrackerServiceApplication>(*args)
+    runApplication<FireTrackerServiceApplication>(*args)
 }

@@ -1,30 +1,16 @@
 package app.web
 
-import app.core.prometheus.PrometheusService
 import app.core.utils.getCurrentAlmatyLocalDateTime
-import app.useCase.AnalyzeResponseElement
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/health")
-class HealthController(
-  private val prometheusService: PrometheusService
-) {
+class HealthController {
 
-  @GetMapping
-  @ResponseBody
-  fun health() = getCurrentAlmatyLocalDateTime()
-
-  @PostMapping("/put-mock-data")
-  @ResponseBody
-  fun test(
-    @RequestParam latitude: Double,
-    @RequestParam longitude: Double,
-    @RequestParam fireDanger: Int,
-    @RequestParam fireRadius: Int
-  ) {
-    prometheusService.putFireDangerData(
-      AnalyzeResponseElement(latitude, longitude, fireDanger, fireRadius)
-    )
-  }
+    @GetMapping
+    @ResponseBody
+    fun health() = getCurrentAlmatyLocalDateTime()
 }

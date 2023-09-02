@@ -15,41 +15,41 @@ import java.time.Duration
 
 @Configuration
 class RestTemplateConfig(
-	private val prometheusService: PrometheusService
+    private val prometheusService: PrometheusService
 ) {
 
-	@Bean
-	@Qualifier("defaultRestTemplate")
-	fun getDefaultRestTemplate(restTemplateBuilder: RestTemplateBuilder): RestTemplate = restTemplateBuilder
-		.setReadTimeout(Duration.ofSeconds(60))
-		.setConnectTimeout(Duration.ofSeconds(20))
-		.additionalInterceptors(RestTemplateLoggerInterceptor(prometheusService))
-		.build()
+    @Bean
+    @Qualifier("defaultRestTemplate")
+    fun getDefaultRestTemplate(restTemplateBuilder: RestTemplateBuilder): RestTemplate = restTemplateBuilder
+        .setReadTimeout(Duration.ofSeconds(60))
+        .setConnectTimeout(Duration.ofSeconds(20))
+        .additionalInterceptors(RestTemplateLoggerInterceptor(prometheusService))
+        .build()
 }
 
 class RestTemplateLoggerInterceptor(
-	private val prometheusService: PrometheusService
+    private val prometheusService: PrometheusService
 ) : ClientHttpRequestInterceptor {
 
-	override fun intercept(
-		request: HttpRequest,
-		body: ByteArray,
-		execution: ClientHttpRequestExecution
-	): ClientHttpResponse {
-		val stopWatch = StopWatch()
-		stopWatch.start()
+    override fun intercept(
+        request: HttpRequest,
+        body: ByteArray,
+        execution: ClientHttpRequestExecution
+    ): ClientHttpResponse {
+        val stopWatch = StopWatch()
+        stopWatch.start()
 
-		val uri = request.uri.rawPath
+        val uri = request.uri.rawPath
 
-		val response = try {
-			prometheusService.incrementExternalServiceCall(uri)
-			execution.execute(request, body)
-		} catch (e: Exception) {
-			stopWatch.stop()
-			prometheusService.incrementExternalServiceError(uri)
-			throw e
-		}
+        val response = try {
+            prometheusService.incrementExternalServiceCall(uri)
+            execution.execute(request, body)
+        } catch (e: Exception) {
+            stopWatch.stop()
+            prometheusService.incrementExternalServiceError(uri)
+            throw e
+        }
 
-		return response
-	}
+        return response
+    }
 }
