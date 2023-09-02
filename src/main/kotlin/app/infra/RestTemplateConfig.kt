@@ -11,6 +11,7 @@ import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.http.client.ClientHttpResponse
 import org.springframework.util.StopWatch
 import org.springframework.web.client.RestTemplate
+import java.time.Duration
 
 @Configuration
 class RestTemplateConfig(
@@ -20,6 +21,8 @@ class RestTemplateConfig(
 	@Bean
 	@Qualifier("defaultRestTemplate")
 	fun getDefaultRestTemplate(restTemplateBuilder: RestTemplateBuilder): RestTemplate = restTemplateBuilder
+		.setReadTimeout(Duration.ofSeconds(60))
+		.setConnectTimeout(Duration.ofSeconds(20))
 		.additionalInterceptors(RestTemplateLoggerInterceptor(prometheusService))
 		.build()
 }

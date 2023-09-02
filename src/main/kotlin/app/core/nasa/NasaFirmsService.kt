@@ -26,7 +26,7 @@ class NasaFirmsService(
 			String::class.java
 		).body ?: throw RuntimeException("Failed to get NASA FIRMS data")
 
-		externalServiceRequestManager.saveRequest(url, HttpMethod.GET.name(), "", rawResponse)
+//		externalServiceRequestManager.saveRequest(url, HttpMethod.GET.name(), "", rawResponse)
 		return rawResponse
 	}
 
@@ -48,7 +48,7 @@ data class NasaFirmsResponse(
 data class NasaFirmsElement(
 
 	@JsonProperty("country_id")
-	val countryId: Long?,
+	val countryId: String?,
 
 	@JsonProperty("latitude")
 	val latitude: Double,
@@ -66,7 +66,7 @@ data class NasaFirmsElement(
 	val track: Double?,
 
 	@JsonProperty("acq_date")
-	val acqDate: LocalDate,
+	val acqDate: String?,
 
 	@JsonProperty("acq_time")
 	val acqTime: Int?,

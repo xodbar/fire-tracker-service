@@ -22,10 +22,10 @@ class ExternalServiceRequestModel(
 	@Column(name = "method", nullable = false)
 	val method: String,
 
-	@Column(name = "request", nullable = false)
+	@Column(name = "request", nullable = false, columnDefinition = "text")
 	val request: String,
 
-	@Column(name = "response")
+	@Column(name = "response", columnDefinition = "text")
 	var response: String? = null,
 
 	@Column(name = "timestamp", nullable = false)

@@ -1,14 +1,28 @@
 version: '3'
 services:
   # Spring Boot application service
-  spring-app:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8888:8888"
     depends_on:
       - prometheus
+    environment:
+      HOST: db
+      PORT: 5432
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5433:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
 
   # Prometheus service
   prometheus:
@@ -16,7 +30,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus-config:/etc/prometheus
+      - ./prometheus-config/prometheus.yml:/etc/prometheus/prometheus.yml
 
   # Grafana service
   grafana:
@@ -25,3 +39,7 @@ services:
       - "3000:3000"
     environment:
       - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+
+volumes:
+  db:
+    driver: local
