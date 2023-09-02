@@ -39,7 +39,9 @@ class RestTemplateLoggerInterceptor(
         val stopWatch = StopWatch()
         stopWatch.start()
 
-        val uri = request.uri.rawPath
+        val uri = if (request.uri.rawPath.contains("/api/country/csv/"))
+            "/api/country/csv/"
+        else request.uri.rawPath
 
         val response = try {
             prometheusService.incrementExternalServiceCall(uri)
