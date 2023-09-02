@@ -36,6 +36,11 @@ class SensitiveLocationService(
 
     private fun getByLocation(latitude: Double, longitude: Double): SensitiveLocationModel? {
         val (roundedLatitude, roundedLongitude) = getRoundedLatitudeAndLongitude(latitude, longitude)
-        return sensitiveLocationRepo.findFirstByLatitudeAndLongitude(roundedLatitude, roundedLongitude)
+        return sensitiveLocationRepo.findLocationsInRange( // to avoid adding the same location
+            minLatitude = roundedLatitude - 5,
+            maxLatitude = roundedLatitude + 5,
+            minLongitude = roundedLongitude - 5,
+            maxLongitude = roundedLongitude + 5
+        ).firstOrNull()
     }
 }
