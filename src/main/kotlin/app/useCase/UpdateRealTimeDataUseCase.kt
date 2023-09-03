@@ -38,7 +38,7 @@ class UpdateRealTimeDataUseCase(
             )
 
             val riskRate = openWeatherData.getAverageRiskRate()
-            if (riskRate > 2) {
+            if (riskRate >= 2) {
                 sensitiveLocationService.save(firmsElement.latitude, firmsElement.longitude, riskRate)
                 prometheusService.putRealTimeData(firmsElement.latitude, firmsElement.longitude, riskRate)
             }
