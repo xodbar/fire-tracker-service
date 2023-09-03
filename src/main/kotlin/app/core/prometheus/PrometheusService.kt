@@ -13,13 +13,13 @@ class PrometheusService(registry: CollectorRegistry) {
         .name("fire_tracker_service_fire_danger_real_time")
         .help("Real time fire gauge")
         .labelNames("latitude", "longitude")
-        .register()
+        .register(registry)
 
     private val fireDangerMetricsPrediction: Gauge = Gauge.build()
         .name("fire_tracker_service_fire_danger_prediction")
         .help("Prediction fire gauge")
         .labelNames("latitude", "longitude")
-        .register()
+        .register(registry)
 
     private val externalServiceCallCounter: Counter = Counter.Builder()
         .name("fire_tracker_service_external_service_call_counter")
@@ -29,7 +29,7 @@ class PrometheusService(registry: CollectorRegistry) {
 
     private val externalServiceErrorCounter: Counter = Counter.Builder()
         .name("fire_tracker_service_external_service_error_counter")
-        .help("Simple counter for external services calls")
+        .help("Simple counter for external services errors")
         .labelNames("url")
         .register(registry)
 
