@@ -22,10 +22,8 @@ class UpdatePredictionDataUseCase(
             )
 
             val riskRate = openWeatherData.getAverageRiskRate()
-            if (riskRate >= 2) {
-                sensitiveLocationService.save(sensitiveLocation.latitude, sensitiveLocation.longitude, riskRate)
-                prometheusService.putPredictionData(sensitiveLocation.latitude, sensitiveLocation.longitude, riskRate)
-            }
+            sensitiveLocationService.save(sensitiveLocation.latitude, sensitiveLocation.longitude, riskRate)
+            prometheusService.putPredictionData(sensitiveLocation.latitude, sensitiveLocation.longitude, riskRate)
         }
     }
 }
