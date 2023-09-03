@@ -31,7 +31,7 @@ class UpdateRealTimeDataUseCase(
         val firmsListJson = "{ \"list\": ${csvToJson(firmsCsvData)} }"
         val firmsData = jacksonObjectMapper().readValue(firmsListJson, NasaFirmsResponse::class.java)
 
-        firmsData.list.take(100).map { firmsElement ->
+        firmsData.list.shuffled().take(100).map { firmsElement ->
             val openWeatherData = openWeatherService.getFireRiskRate( // just to ensure risk rate
                 latitude = firmsElement.latitude,
                 longitude = firmsElement.longitude
