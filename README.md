@@ -5,9 +5,9 @@ Technology Stack:
 - Kotlin
 - Spring Boot
 - JPA + Hibernate
-- - Postgresql
+- Postgres
 - Prometheus
-- - Graphon
+- Grafana
 - Docker
 ---
 Implemented integration with services:
