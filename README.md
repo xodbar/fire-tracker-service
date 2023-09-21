@@ -9,7 +9,7 @@ Technology Stack:
 - Prometheus
 - Grafana
 - Docker
----
+
 Implemented integration with services:
 - NASA FIRMS
 - OpenWeather API
