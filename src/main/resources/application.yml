@@ -8,6 +8,10 @@ server:
 logging:
   file:
     name: logs/fire-tracker-service.log
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api/docs
 
 ---
 spring:
