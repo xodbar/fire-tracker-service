@@ -4,7 +4,7 @@ spring:
   profiles:
     default: prod
 server:
-  port: 8888
+  port: 7777
 logging:
   file:
     name: logs/fire-tracker-service.log
@@ -45,6 +45,9 @@ management:
         enabled: true
 
 app:
+  auth:
+    secret: xodbar
+    expiration-millis: 900000
   constant:
     risk-rate: 1
   services:

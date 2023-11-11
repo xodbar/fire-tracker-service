@@ -1,4 +1,4 @@
-package app.web
+package app.web.controller
 
 import app.core.nasa.NasaFirmsResponse
 import app.core.nasa.NasaFirmsService
