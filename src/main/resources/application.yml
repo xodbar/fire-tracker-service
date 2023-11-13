@@ -45,6 +45,7 @@ management:
         enabled: true
 
 app:
+  version: V1.0_BETA
   auth:
     secret: xodbar
     expiration-millis: 900000
