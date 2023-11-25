@@ -14,13 +14,14 @@ import java.util.*
 class JWTAuthService(
     @Qualifier("jwtSignAlgorithm") private val algorithm: Algorithm,
     @Qualifier("jwtVerifier") private val verifier: JWTVerifier,
-    @Value("\${app.auth.expiration-millis}") val expirationMillis: Long
+    @Value("\${app.auth.expiration-millis}") val expirationMillis: Long,
+    @Value("\${app.auth.issuer}") val issuer: String
 ) {
 
     fun issueApiToken(username: String): String {
         val currentInstant = getCurrentAlmatyLocalDateTime().toInstant(ZoneOffset.UTC)
         return JWT.create()
-            .withIssuer("IITU")
+            .withIssuer(issuer)
             .withSubject(username)
             .withIssuedAt(currentInstant)
             .withExpiresAt(currentInstant.plusMillis(expirationMillis))

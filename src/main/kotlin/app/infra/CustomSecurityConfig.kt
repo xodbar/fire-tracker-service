@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 @Configuration
 class CustomSecurityConfig(
     @Value("\${app.auth.secret}") val jwtSecret: String,
+    @Value("\${app.auth.issuer}") val issuer: String
 ) {
 
     @Bean
@@ -27,7 +28,7 @@ class CustomSecurityConfig(
     @Bean
     fun jwtVerifier(): JWTVerifier {
         return JWT.require(jwtSignAlgorithm())
-            .withIssuer("IITU")
+            .withIssuer(issuer)
             .build()
     }
 }

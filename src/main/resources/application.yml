@@ -47,8 +47,9 @@ management:
 app:
   version: V1.0_BETA
   auth:
-    secret: xodbar
+    secret: aWl0dV9zdWNrcw==
     expiration-millis: 900000
+    issuer: IITU
   constant:
     risk-rate: 1
   services:
@@ -57,5 +58,6 @@ app:
     open-weather:
       url: https://api.openweathermap.org/data/2.5
       token: 4490a59ec10f5a89677cf9381637e57e
+      mocked: true
   topics:
     notify-consumers: fire-tracker-service-notify-consumers
