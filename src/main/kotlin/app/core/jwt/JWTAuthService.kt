@@ -26,7 +26,7 @@ class JWTAuthService(
             .withExpiresAt(currentInstant.plusMillis(expirationMillis))
             .withJWTId(UUID.randomUUID().toString())
             .withNotBefore(currentInstant.plusMillis(1000))
-            .sign(algorithm);
+            .sign(algorithm)
     }
 
     fun getSubject(token: String): String? {

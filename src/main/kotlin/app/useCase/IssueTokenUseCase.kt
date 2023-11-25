@@ -15,7 +15,7 @@ class IssueTokenUseCase(
     @Transactional
     fun handle(input: IssueTokenInput): IssueTokenOutput {
         return userService.authenticate(input.username, input.password).takeIf { it }?.let {
-            return IssueTokenOutput(
+            IssueTokenOutput(
                 type = "bearer",
                 token = JWTAuthService.issueApiToken(input.username)
             )
